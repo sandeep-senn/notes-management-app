@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import SearchBar from './SearchBar/SearchBar'
-import Profile from './cards/profile'
+import SearchBar from './SearchBar/SearchBar.jsx'
+import Profile from './cards/Profile.jsx'
 
 const Navbar = () => {
 
