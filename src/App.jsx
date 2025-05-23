@@ -1,22 +1,34 @@
-import React, { useState } from "react"
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom"
-import Home from "./pages/Home/Home"
-import Login from "./pages/Login/Login"
-import Signup from "./pages/Signup/Signup"
-import { ToastContainer } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import { SignedIn, SignedOut, RedirectToSignIn, SignIn, SignUp, RedirectToUserProfile } from "@clerk/clerk-react";
+import Home from "./pages/Home/Home";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/"
+          element={
+            <>
+              <SignedIn>
+                <Home />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        />
+        <Route path="/sign-in/*" element={<SignIn routing="path" path="/sign-in" />} />
+        <Route path="/sign-up/*" element={<SignUp routing="path" path="/sign-up" />} />
+        <Route path="/user/*" element={<RedirectToUserProfile />} />
       </Routes>
       <ToastContainer position="top-center" />
-    </BrowserRouter>
-  )
-}
+    </>
+  );
+};
 
-export default App
+export default App;
